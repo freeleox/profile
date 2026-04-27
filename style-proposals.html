@@ -1,0 +1,1504 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>个人网站 - 样式方案选择</title>
+<style>
+  /* ========== 全局重置 & 基础 ========== */
+  *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+
+  @font-face {
+    font-family: 'PixelFont';
+    src: local('Press Start 2P');
+  }
+
+  body {
+    font-family: 'Segoe UI', 'Microsoft YaHei', sans-serif;
+    background: #0a0a0a;
+    color: #f0f0f0;
+    overflow-x: hidden;
+  }
+
+  /* ========== 方案选择器 ========== */
+  .scheme-selector {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 9999;
+    background: rgba(10,10,10,0.95);
+    backdrop-filter: blur(12px);
+    border-bottom: 2px solid #333;
+    padding: 16px 32px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+  .scheme-selector h2 {
+    font-size: 14px;
+    color: #888;
+    white-space: nowrap;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+  }
+  .scheme-btn {
+    padding: 10px 24px;
+    border: 2px solid #444;
+    background: transparent;
+    color: #ccc;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s;
+    position: relative;
+  }
+  .scheme-btn:hover { border-color: #fff; color: #fff; }
+  .scheme-btn.active {
+    border-color: #FFD700;
+    color: #FFD700;
+    background: rgba(255,215,0,0.08);
+  }
+  .scheme-btn .dot {
+    display: inline-block;
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    margin-right: 8px;
+  }
+
+  /* ========== 各方案容器 ========== */
+  .scheme { display: none; padding-top: 80px; }
+  .scheme.active { display: block; }
+
+  /* =============================================
+     方案 A: 经典包豪斯 — 几何撞色
+     ============================================= */
+  .scheme-a {
+    --red: #E63946;
+    --blue: #1D3557;
+    --yellow: #FFD60A;
+    --dark: #0D1117;
+    --light: #F1FAEE;
+    background: var(--dark);
+  }
+
+  /* --- 方案A: 导航 --- */
+  .scheme-a .side-nav {
+    position: fixed;
+    left: 0; top: 50%;
+    transform: translateY(-50%);
+    z-index: 100;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+  .scheme-a .side-nav a {
+    display: block;
+    width: 48px;
+    height: 48px;
+    background: var(--red);
+    border: 3px solid var(--yellow);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    font-size: 18px;
+    transition: all 0.3s;
+    position: relative;
+  }
+  .scheme-a .side-nav a:nth-child(2) { background: var(--blue); }
+  .scheme-a .side-nav a:nth-child(3) { background: var(--yellow); }
+  .scheme-a .side-nav a:nth-child(4) { background: var(--red); }
+  .scheme-a .side-nav a .nav-label {
+    position: absolute;
+    left: 56px;
+    background: var(--yellow);
+    color: var(--dark);
+    padding: 4px 12px;
+    font-size: 12px;
+    font-weight: 700;
+    white-space: nowrap;
+    opacity: 0;
+    transform: translateX(-8px);
+    transition: all 0.3s;
+    pointer-events: none;
+  }
+  .scheme-a .side-nav a:hover .nav-label {
+    opacity: 1;
+    transform: translateX(0);
+  }
+
+  /* --- 方案A: Hero --- */
+  .scheme-a .hero {
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .scheme-a .hero::before {
+    content: '';
+    position: absolute;
+    top: -80px; right: -80px;
+    width: 400px; height: 400px;
+    background: var(--red);
+    border-radius: 50%;
+    opacity: 0.15;
+  }
+  .scheme-a .hero::after {
+    content: '';
+    position: absolute;
+    bottom: -120px; left: -60px;
+    width: 300px; height: 300px;
+    background: var(--yellow);
+    opacity: 0.1;
+    transform: rotate(45deg);
+  }
+
+  .scheme-a .avatar-wrapper {
+    text-align: center;
+    position: relative;
+    z-index: 2;
+  }
+  .scheme-a .avatar-frame {
+    width: 200px; height: 200px;
+    border: 6px solid var(--yellow);
+    outline: 6px solid var(--red);
+    outline-offset: 4px;
+    overflow: hidden;
+    margin: 0 auto;
+    position: relative;
+    background: var(--blue);
+  }
+  .scheme-a .avatar-frame img {
+    width: 100%; height: 100%;
+    object-fit: cover;
+    filter: grayscale(20%);
+  }
+  .scheme-a .avatar-frame .pixel-overlay {
+    position: absolute;
+    inset: 0;
+    background: repeating-linear-gradient(
+      0deg,
+      transparent, transparent 3px,
+      rgba(0,0,0,0.05) 3px, rgba(0,0,0,0.05) 4px
+    );
+  }
+  .scheme-a .name-tag {
+    margin-top: 24px;
+    font-size: 28px;
+    font-weight: 900;
+    letter-spacing: 8px;
+    color: var(--light);
+    text-transform: uppercase;
+  }
+  .scheme-a .name-tag span {
+    color: var(--yellow);
+  }
+  .scheme-a .subtitle {
+    font-size: 13px;
+    color: #888;
+    letter-spacing: 4px;
+    margin-top: 8px;
+  }
+
+  /* --- 方案A: 时间线 --- */
+  .scheme-a .timeline-section {
+    padding: 80px 0;
+    position: relative;
+  }
+  .scheme-a .timeline-center {
+    position: absolute;
+    left: 50%;
+    top: 0; bottom: 0;
+    width: 4px;
+    background: linear-gradient(to bottom, var(--red), var(--yellow), var(--blue));
+    transform: translateX(-50%);
+  }
+  .scheme-a .timeline-item {
+    display: flex;
+    align-items: flex-start;
+    margin-bottom: 60px;
+    position: relative;
+  }
+  .scheme-a .timeline-item:nth-child(odd) {
+    flex-direction: row;
+    padding-right: calc(50% + 40px);
+    padding-left: 80px;
+    text-align: right;
+  }
+  .scheme-a .timeline-item:nth-child(even) {
+    flex-direction: row-reverse;
+    padding-left: calc(50% + 40px);
+    padding-right: 80px;
+    text-align: left;
+  }
+  .scheme-a .timeline-dot {
+    position: absolute;
+    left: 50%;
+    top: 8px;
+    transform: translateX(-50%);
+    width: 20px; height: 20px;
+    border: 4px solid var(--yellow);
+    background: var(--dark);
+    z-index: 2;
+  }
+  .scheme-a .timeline-item:nth-child(odd) .timeline-dot { border-color: var(--red); }
+  .scheme-a .timeline-item:nth-child(even) .timeline-dot { border-color: var(--blue); }
+
+  .scheme-a .tl-card {
+    background: rgba(255,255,255,0.03);
+    border: 2px solid #222;
+    padding: 24px;
+    position: relative;
+  }
+  .scheme-a .tl-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0;
+    width: 6px; height: 100%;
+  }
+  .scheme-a .timeline-item:nth-child(odd) .tl-card::before { background: var(--red); right:0; left:auto; }
+  .scheme-a .timeline-item:nth-child(even) .tl-card::before { background: var(--blue); }
+
+  .scheme-a .tl-year {
+    font-size: 36px;
+    font-weight: 900;
+    color: var(--yellow);
+    font-family: 'Courier New', monospace;
+    line-height: 1;
+  }
+  .scheme-a .tl-content {
+    margin-top: 8px;
+    font-size: 14px;
+    color: #aaa;
+    line-height: 1.7;
+  }
+
+  /* --- 方案A: 游戏墙 --- */
+  .scheme-a .game-wall-section {
+    padding: 80px 40px;
+  }
+  .scheme-a .section-title {
+    font-size: 48px;
+    font-weight: 900;
+    text-align: center;
+    margin-bottom: 48px;
+    position: relative;
+  }
+  .scheme-a .section-title::after {
+    content: '';
+    display: block;
+    width: 80px; height: 6px;
+    background: var(--yellow);
+    margin: 12px auto 0;
+  }
+  .scheme-a .game-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 0;
+    border: 3px solid var(--yellow);
+  }
+  .scheme-a .game-card {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 16px 20px;
+    background: rgba(29,53,87,0.2);
+    border: 1px solid #222;
+    transition: all 0.3s;
+    cursor: pointer;
+  }
+  .scheme-a .game-card:hover {
+    background: rgba(230,57,70,0.15);
+    border-color: var(--red);
+  }
+  .scheme-a .game-cover {
+    width: 80px; height: 80px;
+    background: var(--blue);
+    border: 2px solid var(--yellow);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    flex-shrink: 0;
+  }
+  .scheme-a .game-info h4 {
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--light);
+  }
+  .scheme-a .game-info .hours {
+    font-size: 13px;
+    color: var(--yellow);
+    margin-top: 2px;
+    font-family: 'Courier New', monospace;
+  }
+  .scheme-a .game-info .progress-bar {
+    margin-top: 6px;
+    height: 4px;
+    background: #333;
+    width: 160px;
+    position: relative;
+  }
+  .scheme-a .game-info .progress-bar .fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--red), #FF6B6B);
+  }
+  .scheme-a .game-info .achievement {
+    font-size: 12px;
+    color: #666;
+    margin-top: 4px;
+  }
+
+  /* =============================================
+     方案 B: 像素复古街机
+     ============================================= */
+  .scheme-b {
+    --red: #FF2D2D;
+    --blue: #2D7CFF;
+    --yellow: #FFEF2D;
+    --green: #2DFF6E;
+    --dark: #111118;
+    --pixel: 'Courier New', 'Consolas', monospace;
+    background: var(--dark);
+    image-rendering: pixelated;
+  }
+
+  /* 像素扫描线 */
+  .scheme-b::after {
+    content: '';
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    background: repeating-linear-gradient(
+      0deg,
+      transparent, transparent 2px,
+      rgba(0,0,0,0.08) 2px, rgba(0,0,0,0.08) 4px
+    );
+    z-index: 9998;
+  }
+
+  /* --- 方案B: 导航 --- */
+  .scheme-b .side-nav {
+    position: fixed;
+    right: 16px; top: 50%;
+    transform: translateY(-50%);
+    z-index: 100;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .scheme-b .side-nav a {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    text-decoration: none;
+    padding: 6px 12px;
+    border: 2px solid transparent;
+    transition: all 0.2s;
+    font-family: var(--pixel);
+    font-size: 11px;
+    color: #666;
+  }
+  .scheme-b .side-nav a:hover {
+    border-color: var(--yellow);
+    color: var(--yellow);
+    background: rgba(255,239,45,0.06);
+  }
+  .scheme-b .side-nav a .pip {
+    width: 8px; height: 8px;
+    background: var(--green);
+    display: inline-block;
+  }
+  .scheme-b .side-nav a:nth-child(2) .pip { background: var(--red); }
+  .scheme-b .side-nav a:nth-child(3) .pip { background: var(--blue); }
+  .scheme-b .side-nav a:nth-child(4) .pip { background: var(--yellow); }
+
+  /* --- 方案B: Hero --- */
+  .scheme-b .hero {
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .scheme-b .hero .grid-bg {
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(45,124,255,0.06) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(45,124,255,0.06) 1px, transparent 1px);
+    background-size: 32px 32px;
+  }
+  .scheme-b .avatar-wrapper {
+    text-align: center;
+    position: relative;
+    z-index: 2;
+  }
+  .scheme-b .avatar-frame {
+    width: 192px; height: 192px;
+    border: 8px solid var(--yellow);
+    overflow: hidden;
+    margin: 0 auto;
+    position: relative;
+    background: #222;
+    image-rendering: pixelated;
+    box-shadow:
+      8px 8px 0 var(--red),
+      -8px -8px 0 var(--blue);
+  }
+  .scheme-b .avatar-frame img {
+    width: 100%; height: 100%;
+    object-fit: cover;
+  }
+  .scheme-b .hp-bar {
+    width: 192px;
+    margin: 16px auto 0;
+    height: 12px;
+    background: #333;
+    border: 2px solid #555;
+    position: relative;
+    overflow: hidden;
+  }
+  .scheme-b .hp-bar::before {
+    content: '';
+    position: absolute;
+    left: 0; top: 0; bottom: 0;
+    width: 85%;
+    background: linear-gradient(90deg, var(--green), #5FFF8F);
+  }
+  .scheme-b .hp-bar::after {
+    content: 'HP 85/100';
+    position: absolute;
+    right: 4px; top: 50%;
+    transform: translateY(-50%);
+    font-family: var(--pixel);
+    font-size: 8px;
+    color: #fff;
+    text-shadow: 1px 1px #000;
+  }
+  .scheme-b .name-tag {
+    margin-top: 16px;
+    font-family: var(--pixel);
+    font-size: 22px;
+    font-weight: 900;
+    color: var(--yellow);
+    letter-spacing: 6px;
+    text-shadow: 3px 3px 0 var(--red);
+  }
+  .scheme-b .subtitle {
+    font-family: var(--pixel);
+    font-size: 11px;
+    color: var(--green);
+    margin-top: 8px;
+    letter-spacing: 2px;
+  }
+  .scheme-b .pixel-badge {
+    display: inline-block;
+    margin-top: 12px;
+    padding: 4px 16px;
+    border: 2px solid var(--blue);
+    font-family: var(--pixel);
+    font-size: 10px;
+    color: var(--blue);
+    animation: blink 1.2s infinite;
+  }
+  @keyframes blink { 0%,100% { opacity:1; } 50% { opacity:0.4; } }
+
+  /* --- 方案B: 时间线 --- */
+  .scheme-b .timeline-section {
+    padding: 80px 0;
+    position: relative;
+  }
+  .scheme-b .timeline-center {
+    position: absolute;
+    left: 50%; top: 0; bottom: 0;
+    width: 4px;
+    background: repeating-linear-gradient(
+      to bottom,
+      var(--yellow) 0, var(--yellow) 8px,
+      transparent 8px, transparent 16px
+    );
+    transform: translateX(-50%);
+  }
+  .scheme-b .timeline-item {
+    display: flex;
+    margin-bottom: 48px;
+    position: relative;
+  }
+  .scheme-b .timeline-item:nth-child(odd) {
+    padding-right: calc(50% + 32px);
+    padding-left: 80px;
+    text-align: right;
+  }
+  .scheme-b .timeline-item:nth-child(even) {
+    flex-direction: row-reverse;
+    padding-left: calc(50% + 32px);
+    padding-right: 80px;
+    text-align: left;
+  }
+  .scheme-b .timeline-dot {
+    position: absolute;
+    left: 50%; top: 4px;
+    transform: translateX(-50%);
+    width: 16px; height: 16px;
+    background: var(--yellow);
+    z-index: 2;
+    border: 2px solid var(--dark);
+  }
+  .scheme-b .tl-card {
+    background: rgba(255,255,255,0.02);
+    border: 2px solid #2a2a3a;
+    padding: 20px;
+    font-family: var(--pixel);
+    position: relative;
+  }
+  .scheme-b .tl-card::after {
+    content: '>';
+    position: absolute;
+    bottom: 8px; right: 12px;
+    color: var(--green);
+    font-size: 12px;
+    animation: blink 0.8s infinite;
+  }
+  .scheme-b .tl-year {
+    font-size: 28px;
+    color: var(--yellow);
+    font-family: var(--pixel);
+    text-shadow: 2px 2px 0 rgba(255,45,45,0.5);
+  }
+  .scheme-b .tl-content {
+    margin-top: 8px;
+    font-size: 12px;
+    color: #999;
+    line-height: 1.8;
+    font-family: var(--pixel);
+  }
+
+  /* --- 方案B: 游戏墙 --- */
+  .scheme-b .game-wall-section {
+    padding: 80px 40px;
+  }
+  .scheme-b .section-title {
+    font-family: var(--pixel);
+    font-size: 28px;
+    text-align: center;
+    color: var(--yellow);
+    margin-bottom: 12px;
+    text-shadow: 3px 3px 0 var(--red);
+  }
+  .scheme-b .section-subtitle {
+    text-align: center;
+    font-family: var(--pixel);
+    font-size: 11px;
+    color: var(--green);
+    margin-bottom: 40px;
+  }
+  .scheme-b .game-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 4px;
+    background: #222;
+    border: 4px solid var(--yellow);
+    padding: 4px;
+  }
+  .scheme-b .game-card {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 12px 16px;
+    background: var(--dark);
+    border: 1px solid #1a1a2a;
+    transition: all 0.2s;
+    cursor: pointer;
+  }
+  .scheme-b .game-card:hover {
+    border-color: var(--yellow);
+    background: rgba(255,239,45,0.04);
+    box-shadow: 0 0 16px rgba(255,239,45,0.08);
+  }
+  .scheme-b .game-cover {
+    width: 64px; height: 64px;
+    background: linear-gradient(135deg, var(--blue), var(--red));
+    border: 2px solid #444;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    flex-shrink: 0;
+    image-rendering: pixelated;
+  }
+  .scheme-b .game-info h4 {
+    font-family: var(--pixel);
+    font-size: 13px;
+    color: #eee;
+  }
+  .scheme-b .game-info .hours {
+    font-family: var(--pixel);
+    font-size: 11px;
+    color: var(--green);
+    margin-top: 2px;
+  }
+  .scheme-b .game-info .progress-bar {
+    margin-top: 6px;
+    height: 6px;
+    background: #333;
+    width: 160px;
+  }
+  .scheme-b .game-info .progress-bar .fill {
+    height: 100%;
+    background: var(--yellow);
+  }
+  .scheme-b .game-info .achievement {
+    font-family: var(--pixel);
+    font-size: 10px;
+    color: #666;
+    margin-top: 4px;
+  }
+
+  /* =============================================
+     方案 C: 现代包豪斯融合
+     ============================================= */
+  .scheme-c {
+    --red: #E8503A;
+    --blue: #3A5CE8;
+    --yellow: #F5C518;
+    --dark: #0E0E12;
+    --light: #EAEAEA;
+    background: var(--dark);
+  }
+
+  /* --- 方案C: 导航 --- */
+  .scheme-c .side-nav {
+    position: fixed;
+    left: 24px; top: 50%;
+    transform: translateY(-50%);
+    z-index: 100;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+  .scheme-c .side-nav a {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    text-decoration: none;
+    color: #555;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    transition: all 0.3s;
+    writing-mode: vertical-lr;
+    text-orientation: mixed;
+  }
+  .scheme-c .side-nav a::before {
+    content: '';
+    width: 3px; height: 24px;
+    background: #333;
+    transition: all 0.3s;
+    writing-mode: initial;
+  }
+  .scheme-c .side-nav a:hover { color: var(--yellow); }
+  .scheme-c .side-nav a:hover::before { background: var(--yellow); height: 40px; }
+  .scheme-c .side-nav a:nth-child(1):hover::before { background: var(--red); }
+  .scheme-c .side-nav a:nth-child(2):hover::before { background: var(--blue); }
+  .scheme-c .side-nav a:nth-child(3):hover::before { background: var(--yellow); }
+  .scheme-c .side-nav a:nth-child(4):hover::before { background: var(--red); }
+
+  /* --- 方案C: Hero --- */
+  .scheme-c .hero {
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+  }
+  /* 几何装饰 */
+  .scheme-c .geo-1 {
+    position: absolute;
+    top: 10%; left: 8%;
+    width: 200px; height: 200px;
+    border: 4px solid var(--red);
+    border-radius: 50%;
+    opacity: 0.12;
+  }
+  .scheme-c .geo-2 {
+    position: absolute;
+    bottom: 15%; right: 10%;
+    width: 160px; height: 160px;
+    background: var(--blue);
+    opacity: 0.06;
+  }
+  .scheme-c .geo-3 {
+    position: absolute;
+    top: 20%; right: 20%;
+    width: 0; height: 0;
+    border-left: 60px solid transparent;
+    border-right: 60px solid transparent;
+    border-bottom: 100px solid var(--yellow);
+    opacity: 0.06;
+  }
+
+  .scheme-c .avatar-wrapper {
+    text-align: center;
+    position: relative;
+    z-index: 2;
+  }
+  .scheme-c .avatar-container {
+    position: relative;
+    display: inline-block;
+  }
+  .scheme-c .avatar-frame {
+    width: 180px; height: 220px;
+    border-radius: 100px 100px 20px 20px;
+    overflow: hidden;
+    position: relative;
+    border: 4px solid var(--light);
+  }
+  .scheme-c .avatar-frame img {
+    width: 100%; height: 100%;
+    object-fit: cover;
+  }
+  .scheme-c .avatar-accent-1 {
+    position: absolute;
+    top: -12px; right: -20px;
+    width: 40px; height: 40px;
+    background: var(--red);
+    border-radius: 50%;
+  }
+  .scheme-c .avatar-accent-2 {
+    position: absolute;
+    bottom: 20px; left: -16px;
+    width: 32px; height: 32px;
+    background: var(--yellow);
+  }
+  .scheme-c .avatar-accent-3 {
+    position: absolute;
+    bottom: -8px; right: -8px;
+    width: 0; height: 0;
+    border-left: 16px solid transparent;
+    border-right: 16px solid transparent;
+    border-bottom: 28px solid var(--blue);
+  }
+
+  .scheme-c .name-tag {
+    margin-top: 28px;
+    font-size: 32px;
+    font-weight: 900;
+    letter-spacing: 12px;
+    color: var(--light);
+  }
+  .scheme-c .name-tag .char-r { color: var(--red); }
+  .scheme-c .name-tag .char-b { color: var(--blue); }
+  .scheme-c .name-tag .char-y { color: var(--yellow); }
+  .scheme-c .subtitle {
+    font-size: 13px;
+    color: #666;
+    letter-spacing: 4px;
+    margin-top: 6px;
+  }
+  .scheme-c .tags {
+    margin-top: 20px;
+    display: flex;
+    gap: 8px;
+    justify-content: center;
+  }
+  .scheme-c .tags span {
+    padding: 4px 14px;
+    font-size: 11px;
+    font-weight: 600;
+    border-radius: 999px;
+    letter-spacing: 1px;
+  }
+  .scheme-c .tags span:nth-child(1) { background: rgba(232,80,58,0.15); color: var(--red); border: 1px solid rgba(232,80,58,0.3); }
+  .scheme-c .tags span:nth-child(2) { background: rgba(58,92,232,0.15); color: var(--blue); border: 1px solid rgba(58,92,232,0.3); }
+  .scheme-c .tags span:nth-child(3) { background: rgba(245,197,24,0.15); color: var(--yellow); border: 1px solid rgba(245,197,24,0.3); }
+
+  /* --- 方案C: 时间线 --- */
+  .scheme-c .timeline-section {
+    padding: 80px 0;
+    position: relative;
+  }
+  .scheme-c .timeline-center {
+    position: absolute;
+    left: 50%; top: 0; bottom: 0;
+    width: 2px;
+    background: #222;
+    transform: translateX(-50%);
+  }
+  .scheme-c .timeline-item {
+    display: flex;
+    margin-bottom: 60px;
+    position: relative;
+  }
+  .scheme-c .timeline-item:nth-child(odd) {
+    padding-right: calc(50% + 40px);
+    padding-left: 100px;
+    text-align: right;
+  }
+  .scheme-c .timeline-item:nth-child(even) {
+    flex-direction: row-reverse;
+    padding-left: calc(50% + 40px);
+    padding-right: 100px;
+  }
+  .scheme-c .timeline-dot {
+    position: absolute;
+    left: 50%; top: 8px;
+    transform: translateX(-50%);
+    z-index: 2;
+  }
+  .scheme-c .timeline-item:nth-child(odd) .timeline-dot {
+    width: 16px; height: 16px;
+    border-radius: 50%;
+    background: var(--red);
+  }
+  .scheme-c .timeline-item:nth-child(even) .timeline-dot {
+    width: 14px; height: 14px;
+    background: var(--blue);
+  }
+  .scheme-c .timeline-item:nth-child(3) .timeline-dot {
+    width: 0; height: 0;
+    border-left: 8px solid transparent;
+    border-right: 8px solid transparent;
+    border-bottom: 14px solid var(--yellow);
+    background: transparent;
+    border-radius: 0;
+  }
+
+  .scheme-c .tl-card {
+    padding: 24px;
+    border-radius: 12px;
+    background: rgba(255,255,255,0.03);
+    border: 1px solid #1a1a24;
+    backdrop-filter: blur(4px);
+    transition: all 0.3s;
+  }
+  .scheme-c .tl-card:hover {
+    border-color: #333;
+    background: rgba(255,255,255,0.05);
+  }
+  .scheme-c .tl-year {
+    font-size: 40px;
+    font-weight: 900;
+    background: linear-gradient(135deg, var(--red), var(--yellow));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    line-height: 1;
+  }
+  .scheme-c .tl-content {
+    margin-top: 8px;
+    font-size: 14px;
+    color: #888;
+    line-height: 1.7;
+  }
+
+  /* --- 方案C: 游戏墙 --- */
+  .scheme-c .game-wall-section {
+    padding: 80px 60px;
+  }
+  .scheme-c .section-title {
+    font-size: 40px;
+    font-weight: 900;
+    text-align: center;
+    margin-bottom: 8px;
+    background: linear-gradient(90deg, var(--red), var(--yellow), var(--blue));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .scheme-c .section-subtitle {
+    text-align: center;
+    color: #555;
+    font-size: 13px;
+    margin-bottom: 48px;
+    letter-spacing: 2px;
+  }
+  .scheme-c .game-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+    gap: 12px;
+  }
+  .scheme-c .game-card {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 16px 20px;
+    background: rgba(255,255,255,0.02);
+    border: 1px solid #1a1a24;
+    border-radius: 12px;
+    transition: all 0.3s;
+    cursor: pointer;
+  }
+  .scheme-c .game-card:hover {
+    border-color: var(--yellow);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(0,0,0,0.3);
+  }
+  .scheme-c .game-cover {
+    width: 72px; height: 72px;
+    border-radius: 12px;
+    background: linear-gradient(135deg, var(--red), var(--blue));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 28px;
+    flex-shrink: 0;
+  }
+  .scheme-c .game-info h4 {
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--light);
+  }
+  .scheme-c .game-info .hours {
+    font-size: 13px;
+    color: var(--yellow);
+    margin-top: 2px;
+  }
+  .scheme-c .game-info .progress-bar {
+    margin-top: 6px;
+    height: 4px;
+    background: #222;
+    border-radius: 2px;
+    width: 180px;
+    overflow: hidden;
+  }
+  .scheme-c .game-info .progress-bar .fill {
+    height: 100%;
+    border-radius: 2px;
+    background: linear-gradient(90deg, var(--blue), #6C9CFF);
+  }
+  .scheme-c .game-info .achievement {
+    font-size: 12px;
+    color: #555;
+    margin-top: 4px;
+  }
+
+  /* ========== 方案标签样式 ========== */
+  .scheme-label {
+    text-align: center;
+    padding: 40px 20px 0;
+  }
+  .scheme-label h1 {
+    font-size: 20px;
+    font-weight: 300;
+    letter-spacing: 6px;
+    color: #555;
+  }
+  .scheme-label p {
+    font-size: 13px;
+    color: #444;
+    margin-top: 8px;
+    line-height: 1.6;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .divider {
+    width: 60%;
+    max-width: 500px;
+    height: 1px;
+    background: #222;
+    margin: 60px auto;
+  }
+
+  /* ========== 像素头像占位 ========== */
+  .avatar-placeholder {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 56px;
+    background: linear-gradient(135deg, #2a2a3a, #1a1a2a);
+  }
+</style>
+</head>
+<body>
+
+<!-- 方案选择器 -->
+<div class="scheme-selector">
+  <h2>样式方案</h2>
+  <button class="scheme-btn active" onclick="switchScheme('a')">
+    <span class="dot" style="background:#E63946"></span>方案 A · 经典包豪斯
+  </button>
+  <button class="scheme-btn" onclick="switchScheme('b')">
+    <span class="dot" style="background:#2DFF6E"></span>方案 B · 像素复古街机
+  </button>
+  <button class="scheme-btn" onclick="switchScheme('c')">
+    <span class="dot" style="background:#F5C518"></span>方案 C · 现代融合
+  </button>
+</div>
+
+<!-- ========== 方案 A ========== -->
+<div id="scheme-a" class="scheme scheme-a active">
+  
+  <div class="scheme-label">
+    <h1>方案 A · 经典包豪斯几何撞色</h1>
+    <p>以纯粹的几何形状（方形、圆形）构建布局，红蓝黄大色块直接碰撞。<br>
+    严谨的网格系统，配合粗边框与高对比配色，致敬Bauhaus精神。</p>
+  </div>
+
+  <!-- 导航 -->
+  <nav class="side-nav">
+    <a href="#">👤<span class="nav-label">个人经历</span></a>
+    <a href="#">🎮<span class="nav-label">游戏经历</span></a>
+    <a href="#">❤️<span class="nav-label">我的爱好</span></a>
+    <a href="#">📫<span class="nav-label">联系方式</span></a>
+  </nav>
+
+  <!-- Hero 头像区 -->
+  <section class="hero">
+    <div class="avatar-wrapper">
+      <div class="avatar-frame">
+        <div class="avatar-placeholder">👤</div>
+        <div class="pixel-overlay"></div>
+      </div>
+      <div class="name-tag">LEO <span>XIAO</span></div>
+      <div class="subtitle">GAME ENTHUSIAST / DEVELOPER</div>
+    </div>
+  </section>
+
+  <!-- 时间线 -->
+  <section class="timeline-section">
+    <div class="timeline-center"></div>
+
+    <div class="timeline-item">
+      <div class="timeline-dot"></div>
+      <div class="tl-card">
+        <div class="tl-year">2019</div>
+        <div class="tl-content">开始接触游戏行业，第一次参加游戏开发者大会，<br>认识了许多志同道合的朋友。那一年疯狂迷恋独立游戏。</div>
+      </div>
+    </div>
+
+    <div class="timeline-item">
+      <div class="timeline-dot"></div>
+      <div class="tl-card">
+        <div class="tl-year">2020</div>
+        <div class="tl-content">在家办公的日子里，Apex Legends 的游戏时长突破了 600 小时。<br>同时开始学习 Unity 游戏开发，完成了第一个小原型。</div>
+      </div>
+    </div>
+
+    <div class="timeline-item">
+      <div class="timeline-dot"></div>
+      <div class="tl-card">
+        <div class="tl-year">2022</div>
+        <div class="tl-content">正式进入游戏行业，参与了多个项目的开发工作。<br>GTA5 线上模式成为和朋友们的日常娱乐。</div>
+      </div>
+    </div>
+
+    <div class="timeline-item">
+      <div class="timeline-dot"></div>
+      <div class="tl-card">
+        <div class="tl-year">2024</div>
+        <div class="tl-content">探索更多独立游戏世界，双人成行、木筏求生成为周末保留节目。<br>开始搭建个人网站记录游戏人生。</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 游戏墙 -->
+  <section class="game-wall-section">
+    <h2 class="section-title">🎮 我的游戏库</h2>
+    <div class="game-grid">
+      <div class="game-card">
+        <div class="game-cover">🐱</div>
+        <div class="game-info">
+          <h4>Bongo Cat</h4>
+          <div class="hours">932.4h</div>
+          <div class="progress-bar"><div class="fill" style="width:50%"></div></div>
+          <div class="achievement">成就 14 / 28</div>
+        </div>
+      </div>
+      <div class="game-card">
+        <div class="game-cover">🔫</div>
+        <div class="game-info">
+          <h4>Apex 英雄</h4>
+          <div class="hours">640.9h</div>
+          <div class="progress-bar"><div class="fill" style="width:100%"></div></div>
+          <div class="achievement">成就 12 / 12 ☀️</div>
+        </div>
+      </div>
+      <div class="game-card">
+        <div class="game-cover">🚗</div>
+        <div class="game-info">
+          <h4>侠盗猎车手V</h4>
+          <div class="hours">337.8h</div>
+          <div class="progress-bar"><div class="fill" style="width:28%"></div></div>
+          <div class="achievement">成就 22 / 77</div>
+        </div>
+      </div>
+      <div class="game-card">
+        <div class="game-cover">🍺</div>
+        <div class="game-info">
+          <h4>杯杯倒满</h4>
+          <div class="hours">133.9h</div>
+          <div class="progress-bar"><div class="fill" style="width:69%"></div></div>
+          <div class="achievement">成就 41 / 59</div>
+        </div>
+      </div>
+      <div class="game-card">
+        <div class="game-cover">🐕</div>
+        <div class="game-info">
+          <h4>看门狗2</h4>
+          <div class="hours">64.7h</div>
+          <div class="progress-bar"><div class="fill" style="width:0%"></div></div>
+          <div class="achievement">成就 - / 55</div>
+        </div>
+      </div>
+      <div class="game-card">
+        <div class="game-cover">🦆</div>
+        <div class="game-info">
+          <h4>逃离鸭科夫</h4>
+          <div class="hours">64.2h</div>
+          <div class="progress-bar"><div class="fill" style="width:76%"></div></div>
+          <div class="achievement">成就 42 / 55</div>
+        </div>
+      </div>
+      <div class="game-card">
+        <div class="game-cover">🚢</div>
+        <div class="game-info">
+          <h4>木筏 Raft</h4>
+          <div class="hours">52.5h</div>
+          <div class="progress-bar"><div class="fill" style="width:42%"></div></div>
+          <div class="achievement">成就 44 / 104</div>
+        </div>
+      </div>
+      <div class="game-card">
+        <div class="game-cover">👫</div>
+        <div class="game-info">
+          <h4>双人成行</h4>
+          <div class="hours">48.7h</div>
+          <div class="progress-bar"><div class="fill" style="width:40%"></div></div>
+          <div class="achievement">成就 8 / 20</div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- ========== 方案 B ========== -->
+<div id="scheme-b" class="scheme scheme-b">
+
+  <div class="scheme-label">
+    <h1>方案 B · 像素复古街机</h1>
+    <p>全面拥抱像素风格与复古街机美学。扫描线效果、等宽像素字体、<br>
+    HP血条、闪烁光标……仿佛回到了80年代的游戏厅。</p>
+  </div>
+
+  <!-- 导航 -->
+  <nav class="side-nav">
+    <a href="#"><span class="pip"></span>PROFILE</a>
+    <a href="#"><span class="pip"></span>GAMES</a>
+    <a href="#"><span class="pip"></span>HOBBY</a>
+    <a href="#"><span class="pip"></span>CONTACT</a>
+  </nav>
+
+  <!-- Hero 头像区 -->
+  <section class="hero">
+    <div class="grid-bg"></div>
+    <div class="avatar-wrapper">
+      <div class="avatar-frame">
+        <div class="avatar-placeholder" style="font-size:64px">👾</div>
+      </div>
+      <div class="hp-bar"></div>
+      <div class="name-tag">LEO XIAO</div>
+      <div class="subtitle">LV.99 GAME MASTER</div>
+      <div class="pixel-badge">▶ PRESS START ◀</div>
+    </div>
+  </section>
+
+  <!-- 时间线 -->
+  <section class="timeline-section">
+    <div class="timeline-center"></div>
+
+    <div class="timeline-item">
+      <div class="timeline-dot"></div>
+      <div class="tl-card">
+        <div class="tl-year">2019</div>
+        <div class="tl-content">> 加载存档...<br>> 初次接触游戏行业<br>> 解锁成就：开发者大会首秀</div>
+      </div>
+    </div>
+
+    <div class="timeline-item">
+      <div class="timeline-dot"></div>
+      <div class="tl-card">
+        <div class="tl-year">2020</div>
+        <div class="tl-content">> Apex Legends 时长 +600h<br>> 学习 Unity 引擎<br>> 完成第一个游戏原型</div>
+      </div>
+    </div>
+
+    <div class="timeline-item">
+      <div class="timeline-dot"></div>
+      <div class="tl-card">
+        <div class="tl-year">2022</div>
+        <div class="tl-content">> 职业升级！进入游戏行业<br>> GTA5 Online 成为日常<br>> 参与多个项目开发</div>
+      </div>
+    </div>
+
+    <div class="timeline-item">
+      <div class="timeline-dot"></div>
+      <div class="tl-card">
+        <div class="tl-year">2024</div>
+        <div class="tl-content">> 探索独立游戏世界<br>> 双人成行 & 木筏求生<br>> 搭建个人网站 [进行中]</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 游戏墙 -->
+  <section class="game-wall-section">
+    <h2 class="section-title">[ GAME LIBRARY ]</h2>
+    <p class="section-subtitle">TOTAL PLAY TIME: 2275.1 HOURS</p>
+    <div class="game-grid">
+      <div class="game-card">
+        <div class="game-cover">🐱</div>
+        <div class="game-info">
+          <h4>Bongo Cat</h4>
+          <div class="hours">TIME: 932.4h</div>
+          <div class="progress-bar"><div class="fill" style="width:50%"></div></div>
+          <div class="achievement">ACH: 14/28</div>
+        </div>
+      </div>
+      <div class="game-card">
+        <div class="game-cover">🔫</div>
+        <div class="game-info">
+          <h4>Apex Legends</h4>
+          <div class="hours">TIME: 640.9h</div>
+          <div class="progress-bar"><div class="fill" style="width:100%"></div></div>
+          <div class="achievement">ACH: 12/12 ★</div>
+        </div>
+      </div>
+      <div class="game-card">
+        <div class="game-cover">🚗</div>
+        <div class="game-info">
+          <h4>GTA V</h4>
+          <div class="hours">TIME: 337.8h</div>
+          <div class="progress-bar"><div class="fill" style="width:28%"></div></div>
+          <div class="achievement">ACH: 22/77</div>
+        </div>
+      </div>
+      <div class="game-card">
+        <div class="game-cover">🍺</div>
+        <div class="game-info">
+          <h4>杯杯倒满</h4>
+          <div class="hours">TIME: 133.9h</div>
+          <div class="progress-bar"><div class="fill" style="width:69%"></div></div>
+          <div class="achievement">ACH: 41/59</div>
+        </div>
+      </div>
+      <div class="game-card">
+        <div class="game-cover">🐕</div>
+        <div class="game-info">
+          <h4>Watch Dogs 2</h4>
+          <div class="hours">TIME: 64.7h</div>
+          <div class="progress-bar"><div class="fill" style="width:0%"></div></div>
+          <div class="achievement">ACH: -/55</div>
+        </div>
+      </div>
+      <div class="game-card">
+        <div class="game-cover">🦆</div>
+        <div class="game-info">
+          <h4>逃离鸭科夫</h4>
+          <div class="hours">TIME: 64.2h</div>
+          <div class="progress-bar"><div class="fill" style="width:76%"></div></div>
+          <div class="achievement">ACH: 42/55</div>
+        </div>
+      </div>
+      <div class="game-card">
+        <div class="game-cover">🚢</div>
+        <div class="game-info">
+          <h4>RAFT</h4>
+          <div class="hours">TIME: 52.5h</div>
+          <div class="progress-bar"><div class="fill" style="width:42%"></div></div>
+          <div class="achievement">ACH: 44/104</div>
+        </div>
+      </div>
+      <div class="game-card">
+        <div class="game-cover">👫</div>
+        <div class="game-info">
+          <h4>It Takes Two</h4>
+          <div class="hours">TIME: 48.7h</div>
+          <div class="progress-bar"><div class="fill" style="width:40%"></div></div>
+          <div class="achievement">ACH: 8/20</div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- ========== 方案 C ========== -->
+<div id="scheme-c" class="scheme scheme-c">
+
+  <div class="scheme-label">
+    <h1>方案 C · 现代包豪斯融合</h1>
+    <p>在包豪斯几何美学基础上融入现代设计语言：圆角卡片、毛玻璃质感、<br>
+    渐变配色，既保留红蓝黄撞色的张力，又具备当下流行的精致感。</p>
+  </div>
+
+  <!-- 几何装饰 -->
+  <div class="geo-1"></div>
+  <div class="geo-2"></div>
+  <div class="geo-3"></div>
+
+  <!-- 导航 -->
+  <nav class="side-nav">
+    <a href="#">个人经历</a>
+    <a href="#">游戏经历</a>
+    <a href="#">我的爱好</a>
+    <a href="#">联系方式</a>
+  </nav>
+
+  <!-- Hero 头像区 -->
+  <section class="hero">
+    <div class="avatar-wrapper">
+      <div class="avatar-container">
+        <div class="avatar-frame">
+          <div class="avatar-placeholder">👤</div>
+        </div>
+        <div class="avatar-accent-1"></div>
+        <div class="avatar-accent-2"></div>
+        <div class="avatar-accent-3"></div>
+      </div>
+      <div class="name-tag">
+        L<span class="char-r">E</span>O <span class="char-b">X</span>I<span class="char-y">A</span>O
+      </div>
+      <div class="subtitle">GAME ENTHUSIAST · DEVELOPER</div>
+      <div class="tags">
+        <span>🎮 游戏玩家</span>
+        <span>💻 开发者</span>
+        <span>🎨 创作者</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- 时间线 -->
+  <section class="timeline-section">
+    <div class="timeline-center"></div>
+
+    <div class="timeline-item">
+      <div class="timeline-dot"></div>
+      <div class="tl-card">
+        <div class="tl-year">2019</div>
+        <div class="tl-content">开始接触游戏行业，第一次参加游戏开发者大会。<br>认识了许多志同道合的朋友，那一年疯狂迷恋独立游戏。</div>
+      </div>
+    </div>
+
+    <div class="timeline-item">
+      <div class="timeline-dot"></div>
+      <div class="tl-card">
+        <div class="tl-year">2020</div>
+        <div class="tl-content">在家办公的日子里，Apex Legends 的时长突破 600 小时。<br>同时开始学习 Unity 引擎，完成了第一个游戏原型。</div>
+      </div>
+    </div>
+
+    <div class="timeline-item">
+      <div class="timeline-dot"></div>
+      <div class="tl-card">
+        <div class="tl-year">2022</div>
+        <div class="tl-content">正式进入游戏行业，参与了多个项目的开发。<br>GTA5 Online 成为和朋友们的日常娱乐。</div>
+      </div>
+    </div>
+
+    <div class="timeline-item">
+      <div class="timeline-dot"></div>
+      <div class="tl-card">
+        <div class="tl-year">2024</div>
+        <div class="tl-content">探索更多独立游戏，双人成行、木筏求生成为周末保留节目。<br>开始搭建个人网站，记录我的游戏人生。</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 游戏墙 -->
+  <section class="game-wall-section">
+    <h2 class="section-title">我的游戏库</h2>
+    <p class="section-subtitle">累计游戏时长超过 2275 小时</p>
+    <div class="game-grid">
+      <div class="game-card">
+        <div class="game-cover">🐱</div>
+        <div class="game-info">
+          <h4>Bongo Cat</h4>
+          <div class="hours">932.4 小时</div>
+          <div class="progress-bar"><div class="fill" style="width:50%"></div></div>
+          <div class="achievement">成就 14 / 28</div>
+        </div>
+      </div>
+      <div class="game-card">
+        <div class="game-cover">🔫</div>
+        <div class="game-info">
+          <h4>Apex 英雄</h4>
+          <div class="hours">640.9 小时</div>
+          <div class="progress-bar"><div class="fill" style="width:100%"></div></div>
+          <div class="achievement">成就 12 / 12 ☀️</div>
+        </div>
+      </div>
+      <div class="game-card">
+        <div class="game-cover">🚗</div>
+        <div class="game-info">
+          <h4>侠盗猎车手V</h4>
+          <div class="hours">337.8 小时</div>
+          <div class="progress-bar"><div class="fill" style="width:28%"></div></div>
+          <div class="achievement">成就 22 / 77</div>
+        </div>
+      </div>
+      <div class="game-card">
+        <div class="game-cover">🍺</div>
+        <div class="game-info">
+          <h4>杯杯倒满</h4>
+          <div class="hours">133.9 小时</div>
+          <div class="progress-bar"><div class="fill" style="width:69%"></div></div>
+          <div class="achievement">成就 41 / 59</div>
+        </div>
+      </div>
+      <div class="game-card">
+        <div class="game-cover">🐕</div>
+        <div class="game-info">
+          <h4>看门狗2</h4>
+          <div class="hours">64.7 小时</div>
+          <div class="progress-bar"><div class="fill" style="width:0%"></div></div>
+          <div class="achievement">成就 - / 55</div>
+        </div>
+      </div>
+      <div class="game-card">
+        <div class="game-cover">🦆</div>
+        <div class="game-info">
+          <h4>逃离鸭科夫</h4>
+          <div class="hours">64.2 小时</div>
+          <div class="progress-bar"><div class="fill" style="width:76%"></div></div>
+          <div class="achievement">成就 42 / 55</div>
+        </div>
+      </div>
+      <div class="game-card">
+        <div class="game-cover">🚢</div>
+        <div class="game-info">
+          <h4>木筏 Raft</h4>
+          <div class="hours">52.5 小时</div>
+          <div class="progress-bar"><div class="fill" style="width:42%"></div></div>
+          <div class="achievement">成就 44 / 104</div>
+        </div>
+      </div>
+      <div class="game-card">
+        <div class="game-cover">👫</div>
+        <div class="game-info">
+          <h4>双人成行</h4>
+          <div class="hours">48.7 小时</div>
+          <div class="progress-bar"><div class="fill" style="width:40%"></div></div>
+          <div class="achievement">成就 8 / 20</div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<script>
+function switchScheme(id) {
+  document.querySelectorAll('.scheme').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('.scheme-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('scheme-' + id).classList.add('active');
+  event.target.closest('.scheme-btn').classList.add('active');
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+</script>
+
+</body>
+</html>

@@ -1,0 +1,767 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>快速转换 - 工作效率中心</title>
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --bg: #f5f6f8;
+      --card-bg: #ffffff;
+      --accent: #4a6cf7;
+      --accent-hover: #3b5de7;
+      --accent-light: #eef1ff;
+      --text: #1e293b;
+      --text-secondary: #64748b;
+      --text-muted: #94a3b8;
+      --border: #e2e8f0;
+      --hover-bg: #f8fafc;
+      --radius: 12px;
+      --shadow-sm: 0 1px 2px rgba(0,0,0,.05);
+      --shadow: 0 1px 3px rgba(0,0,0,.08), 0 1px 2px rgba(0,0,0,.04);
+      --shadow-md: 0 4px 12px rgba(0,0,0,.08);
+      --transition: .2s ease;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "PingFang SC", "Microsoft YaHei", sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      min-height: 100vh;
+    }
+
+    /* ========== Top Nav ========== */
+    .top-nav {
+      background: var(--card-bg);
+      border-bottom: 1px solid var(--border);
+      padding: 0 24px;
+      height: 52px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      box-shadow: var(--shadow-sm);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .back-btn {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      text-decoration: none;
+      color: var(--text-secondary);
+      font-size: 13px;
+      padding: 6px 12px;
+      border-radius: 8px;
+      transition: all var(--transition);
+    }
+
+    .back-btn:hover {
+      background: var(--hover-bg);
+      color: var(--accent);
+    }
+
+    .back-btn svg {
+      width: 16px;
+      height: 16px;
+    }
+
+    .top-nav-title {
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--text);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    /* ========== Layout ========== */
+    .container {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 28px 24px 60px;
+    }
+
+    .page-header {
+      margin-bottom: 24px;
+    }
+
+    .page-header h1 {
+      font-size: 22px;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 6px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .page-header p {
+      font-size: 13px;
+      color: var(--text-secondary);
+      line-height: 1.6;
+    }
+
+    /* ========== Main Grid ========== */
+    .main-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+      align-items: start;
+    }
+
+    /* ========== Card ========== */
+    .card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow-sm);
+      overflow: hidden;
+    }
+
+    .card-header {
+      padding: 16px 20px;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .card-header h2 {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--text);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .card-body {
+      padding: 20px;
+    }
+
+    /* ========== Input Area ========== */
+    .input-textarea {
+      width: 100%;
+      min-height: 280px;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 14px 16px;
+      font-size: 14px;
+      font-family: "Cascadia Code", "JetBrains Mono", "Fira Code", "Consolas", monospace;
+      color: var(--text);
+      line-height: 1.8;
+      resize: vertical;
+      outline: none;
+      transition: border-color var(--transition);
+      background: var(--hover-bg);
+    }
+
+    .input-textarea:focus {
+      border-color: var(--accent);
+      background: var(--card-bg);
+    }
+
+    .input-textarea::placeholder {
+      color: var(--text-muted);
+      font-family: inherit;
+    }
+
+    /* ========== Action Bar ========== */
+    .action-bar {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-top: 16px;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      padding: 9px 20px;
+      border-radius: 8px;
+      font-size: 13px;
+      font-weight: 500;
+      cursor: pointer;
+      border: 1px solid var(--border);
+      transition: all var(--transition);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+
+    .btn-primary {
+      background: var(--accent);
+      color: #fff;
+      border-color: var(--accent);
+    }
+
+    .btn-primary:hover {
+      background: var(--accent-hover);
+      transform: translateY(-1px);
+      box-shadow: 0 2px 8px rgba(74,108,247,.25);
+    }
+
+    .btn-secondary {
+      background: var(--card-bg);
+      color: var(--text-secondary);
+    }
+
+    .btn-secondary:hover {
+      background: var(--hover-bg);
+      color: var(--text);
+    }
+
+    .btn-success {
+      background: #10b981;
+      color: #fff;
+      border-color: #10b981;
+    }
+
+    .btn-success:hover {
+      background: #059669;
+      transform: translateY(-1px);
+      box-shadow: 0 2px 8px rgba(16,185,129,.25);
+    }
+
+    .action-bar .spacer { flex: 1; min-width: 10px; }
+
+    .copy-group {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      flex-wrap: wrap;
+      flex-shrink: 0;
+    }
+
+    .btn-col-copy {
+      background: var(--card-bg);
+      color: var(--accent);
+      border-color: var(--accent);
+      font-size: 12px;
+      padding: 8px 14px;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+
+    .btn-col-copy:hover {
+      background: var(--accent-light);
+      transform: translateY(-1px);
+    }
+
+    .line-count {
+      font-size: 12px;
+      color: var(--text-muted);
+    }
+
+    /* ========== Result Table ========== */
+    .result-area {
+      min-height: 280px;
+    }
+
+    .result-empty {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 280px;
+      color: var(--text-muted);
+      font-size: 13px;
+      gap: 8px;
+    }
+
+    .result-empty-icon {
+      font-size: 36px;
+      opacity: .5;
+    }
+
+    .result-table-wrapper {
+      overflow-x: auto;
+    }
+
+    .result-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 13px;
+    }
+
+    .result-table thead th {
+      background: var(--bg);
+      font-weight: 600;
+      color: var(--text-secondary);
+      padding: 10px 16px;
+      text-align: left;
+      border-bottom: 2px solid var(--border);
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: .5px;
+      position: sticky;
+      top: 0;
+    }
+
+    .result-table thead th.row-num {
+      width: 50px;
+      text-align: center;
+      color: var(--text-muted);
+    }
+
+    .result-table tbody tr {
+      transition: background var(--transition);
+    }
+
+    .result-table tbody tr:hover {
+      background: var(--hover-bg);
+    }
+
+    .result-table tbody tr:nth-child(even) {
+      background: rgba(248,250,252,.5);
+    }
+
+    .result-table tbody tr:nth-child(even):hover {
+      background: var(--hover-bg);
+    }
+
+    .result-table td {
+      padding: 10px 16px;
+      border-bottom: 1px solid var(--border);
+      color: var(--text);
+      font-family: "Cascadia Code", "JetBrains Mono", "Fira Code", "Consolas", monospace;
+      word-break: break-all;
+    }
+
+    .result-table td.row-num {
+      text-align: center;
+      color: var(--text-muted);
+      font-size: 11px;
+      font-family: inherit;
+    }
+
+    .result-table td.col-a {
+      background: rgba(74,108,247,.03);
+    }
+
+    .result-table td.col-b {
+      background: rgba(249,115,22,.03);
+    }
+
+    /* Cell click to copy */
+    .result-table td.copyable {
+      cursor: pointer;
+      position: relative;
+    }
+
+    .result-table td.copyable:hover {
+      background: var(--accent-light);
+    }
+
+    .result-table td.copyable.copied::after {
+      content: '✓ 已复制';
+      position: absolute;
+      top: 50%;
+      right: 8px;
+      transform: translateY(-50%);
+      font-size: 10px;
+      color: #10b981;
+      font-family: inherit;
+      animation: fadeInOut 1.2s ease forwards;
+    }
+
+    @keyframes fadeInOut {
+      0% { opacity: 0; transform: translateY(-50%) translateX(5px); }
+      15% { opacity: 1; transform: translateY(-50%) translateX(0); }
+      70% { opacity: 1; }
+      100% { opacity: 0; }
+    }
+
+    /* ========== Toast ========== */
+    .toast {
+      position: fixed;
+      top: 24px;
+      left: 50%;
+      transform: translateX(-50%) translateY(-60px);
+      background: #10b981;
+      color: #fff;
+      padding: 10px 24px;
+      border-radius: 8px;
+      font-size: 13px;
+      font-weight: 500;
+      z-index: 2000;
+      box-shadow: 0 4px 16px rgba(16,185,129,.3);
+      transition: transform .3s ease;
+      pointer-events: none;
+    }
+
+    .toast.show {
+      transform: translateX(-50%) translateY(0);
+    }
+
+    /* ========== Tips ========== */
+    .tips {
+      margin-top: 20px;
+      padding: 14px 18px;
+      background: var(--accent-light);
+      border-radius: 10px;
+      font-size: 12px;
+      color: var(--text-secondary);
+      line-height: 1.8;
+    }
+
+    .tips strong {
+      color: var(--accent);
+    }
+
+    /* ========== Column Config ========== */
+    .config-row {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 14px;
+      font-size: 13px;
+      color: var(--text-secondary);
+    }
+
+    .config-row label {
+      font-weight: 500;
+      white-space: nowrap;
+    }
+
+    .config-input {
+      width: 60px;
+      padding: 6px 10px;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      font-size: 13px;
+      text-align: center;
+      outline: none;
+      transition: border-color var(--transition);
+    }
+
+    .config-input:focus {
+      border-color: var(--accent);
+    }
+
+    .config-hint {
+      font-size: 11px;
+      color: var(--text-muted);
+    }
+
+    /* ========== Responsive ========== */
+    @media (max-width: 800px) {
+      .main-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 500px) {
+      .container { padding: 20px 16px 40px; }
+      .top-nav { padding: 0 16px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ====== Top Navigation ====== -->
+  <div class="top-nav">
+    <a class="back-btn" href="index.html">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <polyline points="15 18 9 12 15 6"/>
+      </svg>
+      返回首页
+    </a>
+    <div class="top-nav-title">📊 快速转换</div>
+  </div>
+
+  <div class="container">
+
+    <!-- ====== Page Header ====== -->
+    <div class="page-header">
+      <h1>📊 快速转换</h1>
+      <p>将多行文本自动转换为可复制的表格。粘贴文本后点击「转换」，每两行自动组成一行表格（A列 + B列）。</p>
+    </div>
+
+    <!-- ====== Main Content ====== -->
+    <div class="main-grid">
+
+      <!-- Left: Input -->
+      <div class="card">
+        <div class="card-header">
+          <h2>📥 输入文本</h2>
+          <span class="line-count" id="lineCount">0 行</span>
+        </div>
+        <div class="card-body">
+          <div class="config-row">
+            <label>每组行数：</label>
+            <input type="number" class="config-input" id="colCount" value="2" min="1" max="10">
+            <span class="config-hint">（默认2行为一组，即 A列 + B列）</span>
+          </div>
+          <textarea
+            class="input-textarea"
+            id="inputText"
+            placeholder="粘贴文本，每行一个值，例如：&#10;&#10;yanyujianzhi&#10;597825964027478724&#10;mhyhsr1440&#10;634874523983729816&#10;&#10;将自动按每2行分组为表格行"
+          ></textarea>
+          <div class="action-bar">
+            <button class="btn btn-primary" onclick="convertToTable()">
+              ⚡ 转换
+            </button>
+            <button class="btn btn-secondary" onclick="clearInput()">
+              🗑️ 清空
+            </button>
+            <div class="spacer"></div>
+            <div class="copy-group" id="copyGroup">
+              <button class="btn btn-success" onclick="copyTable()">
+                📋 复制表格
+              </button>
+            </div>
+          </div>
+          <div class="tips">
+            <strong>💡 使用提示：</strong><br>
+            • 粘贴文本后，空行会被自动过滤<br>
+            • 默认每 <strong>2行</strong> 为一组（A列 + B列），可修改「每组行数」调整列数<br>
+            • 点击表格中的单元格可快速复制该单元格内容<br>
+            • 点击「📋 复制表格」可复制整个表格，直接粘贴到 Excel / 腾讯文档<br>
+            • 点击「复制A列」或「复制B列」可单独复制某一列数据
+          </div>
+        </div>
+      </div>
+
+      <!-- Right: Result -->
+      <div class="card">
+        <div class="card-header">
+          <h2>📤 转换结果</h2>
+          <span class="line-count" id="rowCount"></span>
+        </div>
+        <div class="card-body">
+          <div class="result-area" id="resultArea">
+            <div class="result-empty">
+              <div class="result-empty-icon">📊</div>
+              <div>在左侧粘贴文本并点击「转换」</div>
+              <div style="font-size:11px;color:var(--text-muted);">结果将以表格形式展示</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Toast -->
+  <div class="toast" id="toast"></div>
+
+  <script>
+    const inputText = document.getElementById('inputText');
+    const resultArea = document.getElementById('resultArea');
+    const lineCountEl = document.getElementById('lineCount');
+    const rowCountEl = document.getElementById('rowCount');
+    const colCountInput = document.getElementById('colCount');
+
+    // Live line count
+    inputText.addEventListener('input', updateLineCount);
+
+    function updateLineCount() {
+      const lines = inputText.value.split('\n').filter(l => l.trim() !== '');
+      lineCountEl.textContent = lines.length + ' 行';
+    }
+
+    // Convert to table
+    function convertToTable() {
+      const raw = inputText.value;
+      const lines = raw.split('\n').filter(l => l.trim() !== '').map(l => l.trim());
+
+      if (lines.length === 0) {
+        showToast('⚠️ 请先输入文本', '#f59e0b');
+        return;
+      }
+
+      const cols = parseInt(colCountInput.value) || 2;
+      const colLabels = [];
+      for (let i = 0; i < cols; i++) {
+        colLabels.push(String.fromCharCode(65 + i)); // A, B, C, ...
+      }
+
+      // Build rows
+      const rows = [];
+      for (let i = 0; i < lines.length; i += cols) {
+        const row = [];
+        for (let j = 0; j < cols; j++) {
+          row.push(i + j < lines.length ? lines[i + j] : '');
+        }
+        rows.push(row);
+      }
+
+      // Build HTML table
+      let html = '<div class="result-table-wrapper"><table class="result-table" id="resultTable">';
+
+      // Header
+      html += '<thead><tr><th class="row-num">#</th>';
+      colLabels.forEach(label => {
+        html += `<th>${label} 列</th>`;
+      });
+      html += '</tr></thead>';
+
+      // Body
+      html += '<tbody>';
+      rows.forEach((row, idx) => {
+        html += '<tr>';
+        html += `<td class="row-num">${idx + 1}</td>`;
+        row.forEach((cell, ci) => {
+          const colClass = ci === 0 ? 'col-a' : ci === 1 ? 'col-b' : '';
+          html += `<td class="copyable ${colClass}" onclick="copyCell(this)" title="点击复制">${escapeHtml(cell)}</td>`;
+        });
+        html += '</tr>';
+      });
+      html += '</tbody></table></div>';
+
+      resultArea.innerHTML = html;
+      rowCountEl.textContent = rows.length + ' 行 × ' + cols + ' 列';
+
+      // Dynamically generate column copy buttons
+      const copyGroup = document.getElementById('copyGroup');
+      // Remove old column buttons
+      copyGroup.querySelectorAll('.btn-col-copy').forEach(b => b.remove());
+      // Add new ones
+      colLabels.forEach((label, idx) => {
+        const btn = document.createElement('button');
+        btn.className = 'btn btn-col-copy';
+        btn.textContent = '复制' + label + '列';
+        btn.onclick = function() { copyColumn(idx); };
+        copyGroup.appendChild(btn);
+      });
+
+      showToast('✅ 转换完成 — ' + rows.length + ' 行');
+    }
+
+    // Clear
+    function clearInput() {
+      inputText.value = '';
+      resultArea.innerHTML = `
+        <div class="result-empty">
+          <div class="result-empty-icon">📊</div>
+          <div>在左侧粘贴文本并点击「转换」</div>
+          <div style="font-size:11px;color:var(--text-muted);">结果将以表格形式展示</div>
+        </div>
+      `;
+      lineCountEl.textContent = '0 行';
+      rowCountEl.textContent = '';
+    }
+
+    // Copy single cell
+    function copyCell(td) {
+      const text = td.textContent;
+      navigator.clipboard.writeText(text).then(() => {
+        td.classList.add('copied');
+        setTimeout(() => td.classList.remove('copied'), 1200);
+      });
+    }
+
+    // Copy entire table (tab-separated for Excel paste)
+    function copyTable() {
+      const table = document.getElementById('resultTable');
+      if (!table) {
+        showToast('⚠️ 请先转换生成表格', '#f59e0b');
+        return;
+      }
+
+      const rows = table.querySelectorAll('tbody tr');
+      const tsv = [];
+
+      rows.forEach(row => {
+        const cells = row.querySelectorAll('td.copyable');
+        const rowData = [];
+        cells.forEach(cell => {
+          rowData.push(cell.textContent);
+        });
+        tsv.push(rowData.join('\t'));
+      });
+
+      const text = tsv.join('\n');
+
+      navigator.clipboard.writeText(text).then(() => {
+        showToast('📋 表格已复制到剪贴板，可直接粘贴到 Excel');
+      }).catch(() => {
+        fallbackCopy(text);
+        showToast('📋 表格已复制到剪贴板');
+      });
+    }
+
+    // Copy a single column by index (0 = A, 1 = B, ...)
+    function copyColumn(colIndex) {
+      const table = document.getElementById('resultTable');
+      if (!table) {
+        showToast('⚠️ 请先转换生成表格', '#f59e0b');
+        return;
+      }
+
+      const rows = table.querySelectorAll('tbody tr');
+      const values = [];
+
+      rows.forEach(row => {
+        const cells = row.querySelectorAll('td.copyable');
+        if (cells[colIndex]) {
+          const val = cells[colIndex].textContent;
+          if (val) values.push(val);
+        }
+      });
+
+      if (values.length === 0) {
+        showToast('⚠️ 该列没有数据', '#f59e0b');
+        return;
+      }
+
+      const text = values.join('\n');
+      const label = String.fromCharCode(65 + colIndex);
+
+      navigator.clipboard.writeText(text).then(() => {
+        showToast('📋 已复制 ' + label + ' 列（' + values.length + ' 条）');
+      }).catch(() => {
+        fallbackCopy(text);
+        showToast('📋 已复制 ' + label + ' 列（' + values.length + ' 条）');
+      });
+    }
+
+    // Fallback copy for browsers without clipboard API
+    function fallbackCopy(text) {
+      const textarea = document.createElement('textarea');
+      textarea.value = text;
+      document.body.appendChild(textarea);
+      textarea.select();
+      document.execCommand('copy');
+      document.body.removeChild(textarea);
+    }
+
+    // Escape HTML
+    function escapeHtml(str) {
+      return str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+    }
+
+    // Toast
+    function showToast(msg, color) {
+      const toast = document.getElementById('toast');
+      toast.textContent = msg;
+      toast.style.background = color || '#10b981';
+      toast.classList.add('show');
+      setTimeout(() => toast.classList.remove('show'), 2500);
+    }
+
+    // Auto-convert on paste
+    inputText.addEventListener('paste', function() {
+      setTimeout(() => {
+        updateLineCount();
+        convertToTable();
+      }, 100);
+    });
+
+    // Ctrl+Enter to convert
+    inputText.addEventListener('keydown', function(e) {
+      if (e.ctrlKey && e.key === 'Enter') {
+        e.preventDefault();
+        convertToTable();
+      }
+    });
+  </script>
+</body>
+</html>
