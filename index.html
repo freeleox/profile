@@ -337,327 +337,7 @@ body::after {
 .side-nav a:nth-child(3) .pip { background: var(--bg-yellow); }
 .side-nav a:nth-child(4) .pip { background: var(--green); }
 
-/* ============================================================
-   左侧菜单按钮
-   ============================================================ */
-.menu-trigger {
-  position: fixed;
-  left: 0;
-  top: 50%;
-  transform: translateY(-50%);
-  z-index: 1000;
-  display: flex;
-  align-items: center;
-  gap: 0;
-  cursor: pointer;
-  border: none;
-  background: none;
-  padding: 0;
-  font-family: var(--pixel);
-}
 
-.menu-trigger .menu-icon-box {
-  width: 48px; height: 48px;
-  background: white;
-  border: 3px solid var(--dark);
-  border-left: none;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  image-rendering: pixelated;
-  box-shadow: 4px 4px 0 var(--dark);
-  transition: all 0.2s;
-  position: relative;
-  flex-shrink: 0;
-}
-
-/* 8-bit 像素风汉堡菜单图标 (纯CSS) */
-.menu-trigger .menu-icon-box .pixel-menu-icon {
-  width: 24px; height: 20px;
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-}
-.menu-trigger .menu-icon-box .pixel-menu-icon span {
-  display: block;
-  height: 4px;
-  background: var(--dark);
-  image-rendering: pixelated;
-}
-.menu-trigger .menu-icon-box .pixel-menu-icon span:nth-child(1) { width: 24px; }
-.menu-trigger .menu-icon-box .pixel-menu-icon span:nth-child(2) { width: 18px; }
-.menu-trigger .menu-icon-box .pixel-menu-icon span:nth-child(3) { width: 24px; }
-
-.menu-trigger .menu-label {
-  background: white;
-  border: 3px solid var(--dark);
-  border-left: none;
-  padding: 8px 12px 8px 6px;
-  font-family: var(--pixel);
-  font-size: 10px;
-  color: var(--dark);
-  font-weight: bold;
-  letter-spacing: 1px;
-  white-space: nowrap;
-  box-shadow: 4px 4px 0 var(--dark);
-  transition: all 0.2s;
-}
-
-.menu-trigger:hover .menu-icon-box {
-  background: var(--bg-yellow);
-}
-.menu-trigger:hover .menu-label {
-  background: var(--bg-yellow);
-  color: var(--dark);
-}
-
-/* ============================================================
-   菜单弹框（像素风游戏菜单）
-   ============================================================ */
-.menu-overlay {
-  display: none;
-  position: fixed;
-  inset: 0;
-  background: rgba(0,0,0,0.6);
-  z-index: 10000;
-  align-items: center;
-  justify-content: center;
-}
-.menu-overlay.active {
-  display: flex;
-}
-
-.menu-popup {
-  width: 420px;
-  max-width: 90vw;
-  max-height: 85vh;
-  background: var(--dark);
-  border: 5px solid var(--cream);
-  box-shadow: 0 0 0 3px var(--dark), 8px 8px 0 rgba(0,0,0,0.4);
-  position: relative;
-  font-family: var(--pixel);
-  image-rendering: pixelated;
-  display: flex;
-  flex-direction: column;
-}
-
-/* 弹框顶栏 */
-.menu-popup .popup-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 10px 16px;
-  background: var(--red);
-  border-bottom: 3px solid var(--cream);
-}
-.menu-popup .popup-header .popup-title {
-  font-size: 16px;
-  font-weight: 900;
-  color: var(--cream);
-  letter-spacing: 3px;
-  text-shadow: 2px 2px 0 rgba(0,0,0,0.3);
-}
-.menu-popup .popup-header .popup-title .title-icon {
-  margin: 0 6px;
-}
-.menu-popup .popup-close {
-  width: 28px; height: 28px;
-  background: var(--red);
-  border: 3px solid var(--cream);
-  color: var(--cream);
-  font-size: 16px;
-  font-weight: bold;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-family: var(--pixel);
-  transition: all 0.15s;
-  box-shadow: 2px 2px 0 rgba(0,0,0,0.3);
-}
-.menu-popup .popup-close:hover {
-  background: #FF4444;
-  transform: scale(1.1);
-}
-
-/* 标签页切换 */
-.menu-tabs {
-  display: flex;
-  justify-content: center;
-  gap: 0;
-  padding: 10px 16px 0;
-  background: var(--dark);
-}
-.menu-tab-btn {
-  padding: 8px 20px;
-  font-family: var(--pixel);
-  font-size: 11px;
-  font-weight: bold;
-  border: 3px solid rgba(255,255,255,0.2);
-  background: rgba(255,255,255,0.05);
-  color: rgba(255,255,255,0.5);
-  cursor: pointer;
-  transition: all 0.2s;
-  letter-spacing: 1px;
-}
-.menu-tab-btn:first-child {
-  border-right: none;
-}
-.menu-tab-btn.active {
-  background: var(--blue);
-  color: var(--cream);
-  border-color: var(--cream);
-}
-.menu-tab-btn:hover:not(.active) {
-  background: rgba(255,255,255,0.1);
-  color: var(--cream);
-}
-
-/* 分类小标题 */
-.menu-category {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  padding: 12px 16px 6px;
-  font-size: 11px;
-  color: var(--bg-yellow);
-  letter-spacing: 2px;
-  font-weight: bold;
-}
-.menu-category::after {
-  content: '';
-  flex: 1;
-  height: 2px;
-  background: repeating-linear-gradient(90deg, var(--bg-yellow) 0, var(--bg-yellow) 4px, transparent 4px, transparent 8px);
-}
-
-/* 菜单内容区域 */
-.menu-page {
-  display: none;
-  overflow-y: auto;
-  max-height: 60vh;
-  padding-bottom: 12px;
-}
-.menu-page.active {
-  display: block;
-}
-
-/* 寿司/鸡尾酒 网格 */
-.menu-grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 4px;
-  padding: 6px 16px;
-}
-
-.menu-item {
-  background: rgba(255,255,255,0.06);
-  border: 2px solid rgba(255,255,255,0.1);
-  padding: 10px 8px;
-  text-align: center;
-  cursor: pointer;
-  transition: all 0.2s;
-  position: relative;
-}
-.menu-item:hover {
-  border-color: var(--bg-yellow);
-  background: rgba(255,214,10,0.08);
-  box-shadow: 0 0 12px rgba(255,214,10,0.1);
-}
-.menu-item .item-number {
-  position: absolute;
-  top: 4px; left: 6px;
-  font-size: 9px;
-  font-weight: bold;
-  color: var(--dark);
-  background: var(--red);
-  padding: 1px 5px;
-  font-family: var(--pixel);
-}
-.menu-item .item-icon {
-  font-size: 40px;
-  margin: 4px 0 6px;
-  display: block;
-  image-rendering: pixelated;
-}
-.menu-item .item-name {
-  font-size: 12px;
-  font-weight: bold;
-  color: var(--cream);
-  font-family: var(--pixel);
-  margin-bottom: 2px;
-}
-.menu-item .item-name-sub {
-  font-size: 9px;
-  color: rgba(255,255,255,0.5);
-  font-family: var(--pixel);
-}
-.menu-item .item-price {
-  position: absolute;
-  bottom: 4px; right: 6px;
-  font-size: 10px;
-  color: var(--bg-yellow);
-  font-weight: bold;
-  font-family: var(--pixel);
-}
-.menu-item .item-price::before {
-  content: '●';
-  margin-right: 2px;
-  font-size: 8px;
-}
-
-/* 寿司特殊：红色高亮第一个 */
-.menu-item.featured {
-  background: var(--red);
-  border-color: var(--red);
-}
-.menu-item.featured:hover {
-  background: #D63040;
-}
-.menu-item.featured .item-number {
-  background: var(--dark);
-  color: var(--cream);
-}
-
-/* 鸡尾酒特殊：粉色边框 */
-.menu-page-cocktail .menu-grid {
-  grid-template-columns: repeat(3, 1fr);
-}
-.menu-page-cocktail .menu-item {
-  border-color: rgba(255,105,180,0.3);
-}
-.menu-page-cocktail .menu-item:hover {
-  border-color: #FF69B4;
-  background: rgba(255,105,180,0.08);
-}
-.menu-page-cocktail .menu-category {
-  color: #FF69B4;
-}
-.menu-page-cocktail .menu-category::after {
-  background: repeating-linear-gradient(90deg, #FF69B4 0, #FF69B4 4px, transparent 4px, transparent 8px);
-}
-
-/* 底部页码 */
-.menu-footer {
-  padding: 8px 16px;
-  border-top: 2px solid rgba(255,255,255,0.1);
-  display: flex;
-  align-items: center;
-  gap: 4px;
-  justify-content: center;
-}
-.menu-footer .page-dot {
-  width: 8px; height: 8px;
-  border: 2px solid rgba(255,255,255,0.3);
-  background: transparent;
-  cursor: pointer;
-  transition: all 0.2s;
-}
-.menu-footer .page-dot.active {
-  background: var(--cream);
-  border-color: var(--cream);
-}
 
 /* ============================================================
    固定头像模块（视觉中心）
@@ -1566,6 +1246,351 @@ body::after {
 .pixel-divider .pd-block:nth-child(even) { background: var(--blue); }
 .pixel-divider .pd-block:nth-child(3n) { background: var(--bg-yellow); }
 
+/* ============================================================
+   响应式适配 — 平板 (≤1024px)
+   ============================================================ */
+@media (max-width: 1024px) {
+  /* 时间线左右间距缩小 */
+  .timeline-item.tl-left {
+    padding-right: calc(50% + 100px);
+  }
+  .timeline-item.tl-right {
+    padding-left: calc(50% + 100px);
+  }
+  .timeline-item.tl-left::after,
+  .timeline-item.tl-right::after {
+    width: 96px;
+  }
+  .tl-card {
+    max-width: 320px;
+  }
+  /* 游戏墙间距 */
+  .game-wall-section {
+    padding: 20px 20px 60px;
+  }
+  .hobbies-section {
+    padding: 20px 20px 60px;
+  }
+}
+
+/* ============================================================
+   响应式适配 — 手机 (≤768px)
+   ============================================================ */
+@media (max-width: 768px) {
+  /* 右侧导航改为底部横栏 */
+  .side-nav {
+    top: auto;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    transform: none;
+    flex-direction: row;
+    justify-content: center;
+    background: rgba(255,248,231,0.97);
+    backdrop-filter: blur(8px);
+    border-top: 3px solid var(--dark);
+    box-shadow: 0 -4px 12px rgba(0,0,0,0.1);
+    z-index: 10001;
+  }
+  .side-nav a {
+    flex: 1;
+    justify-content: center;
+    text-align: center;
+    padding: 10px 4px;
+    font-size: 9px;
+    border: none;
+    border-right: 2px solid rgba(26,26,46,0.1);
+    gap: 4px;
+  }
+  .side-nav a:last-child {
+    border-right: none;
+  }
+  .side-nav a .pip {
+    width: 6px;
+    height: 6px;
+  }
+
+  /* 顶部 banner */
+  .top-banner {
+    padding: 30px 12px 16px;
+  }
+  .top-banner .banner-box {
+    padding: 12px 24px;
+  }
+  .top-banner .banner-box h1 {
+    font-size: 22px;
+    letter-spacing: 4px;
+  }
+  .top-banner .banner-box .banner-sub {
+    font-size: 9px;
+    letter-spacing: 1px;
+  }
+
+  /* 固定头像缩小 */
+  .fixed-avatar .avatar-frame {
+    width: 110px;
+    height: 110px;
+  }
+  .fixed-avatar .hp-bar {
+    width: 110px;
+  }
+  .fixed-avatar .name-tag {
+    font-size: 14px;
+    padding: 3px 12px;
+    letter-spacing: 2px;
+  }
+  .fixed-avatar .subtitle {
+    font-size: 9px;
+  }
+  .fixed-avatar .pixel-badge {
+    font-size: 8px;
+    padding: 2px 10px;
+  }
+
+  /* 弹出信息框位置调整到下方 */
+  .pixel-popup {
+    top: auto;
+    bottom: -50px;
+    left: 50%;
+    transform: translateX(-50%) scale(0) translateY(10px);
+    font-size: 10px;
+    padding: 6px 10px;
+  }
+  .pixel-popup.show {
+    transform: translateX(-50%) scale(1) translateY(0);
+  }
+  .pixel-popup.fade-out {
+    transform: translateX(-50%) scale(1) translateY(0);
+  }
+  .pixel-popup-arrow {
+    display: none;
+  }
+
+  /* 时间线改为单列布局 */
+  .timeline-section {
+    padding: 40px 0;
+  }
+  .timeline-line {
+    left: 20px;
+  }
+  .timeline-item.tl-left,
+  .timeline-item.tl-right {
+    padding-left: 48px;
+    padding-right: 16px;
+    justify-content: flex-start;
+  }
+  .timeline-item.tl-left .tl-card {
+    text-align: left;
+  }
+  .timeline-dot {
+    left: 20px;
+  }
+  .timeline-item.tl-left::after,
+  .timeline-item.tl-right::after {
+    left: 28px;
+    right: auto;
+    width: 20px;
+  }
+  .tl-card {
+    max-width: 100%;
+    padding: 14px 16px;
+  }
+  .tl-card .tl-year {
+    font-size: 22px;
+  }
+  .tl-card .tl-content {
+    font-size: 11px;
+  }
+  .timeline-avatar-spacer {
+    height: 140px;
+  }
+
+  /* section 标题 */
+  .section-header {
+    padding: 40px 12px 16px;
+  }
+  .section-header h2 {
+    font-size: 20px;
+    padding: 10px 20px;
+  }
+  .section-header .sub {
+    font-size: 9px;
+  }
+
+  /* 游戏墙 */
+  .game-wall-section {
+    padding: 16px 12px 60px;
+  }
+  .game-wall-bg {
+    padding: 16px 12px;
+    box-shadow: 6px 6px 0 var(--dark);
+  }
+  .game-grid {
+    grid-template-columns: 1fr;
+    gap: 8px;
+  }
+  .game-card {
+    padding: 10px 12px;
+    gap: 10px;
+  }
+  .game-cover {
+    width: 52px;
+    height: 52px;
+  }
+  .game-info h4 {
+    font-size: 12px;
+  }
+  .game-info .pixel-progress .bar-wrap {
+    width: 90px;
+  }
+
+  /* 最近在玩 */
+  .now-playing-grid {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+  .now-playing-card {
+    padding: 12px 14px;
+  }
+  .now-playing-card .np-cover {
+    width: 56px;
+    height: 56px;
+  }
+
+  /* 运营账号卡片 */
+  .hobbies-section {
+    padding: 16px 12px 80px;
+  }
+  .hobbies-grid {
+    grid-template-columns: 1fr !important;
+    max-width: 100% !important;
+    gap: 12px;
+  }
+  .hobby-card {
+    padding: 20px 16px;
+  }
+  .hobby-card .hobby-icon {
+    font-size: 40px;
+    margin-bottom: 8px;
+  }
+  .hobby-card h3 {
+    font-size: 14px;
+  }
+  .hobby-card p {
+    font-size: 10px;
+  }
+
+  /* 像素风分隔条 */
+  .pixel-divider {
+    margin: 0 12px;
+  }
+
+  /* Footer：增加底部间距给导航栏腾空间 */
+  .site-footer {
+    padding: 30px 16px 80px;
+  }
+  .site-footer p {
+    font-size: 10px;
+  }
+
+  /* 背景装饰缩小/隐藏部分 */
+  .pixel-deco-block {
+    opacity: 0.1;
+    transform: scale(0.7);
+  }
+  .pixel-cloud { display: none; }
+  .pixel-mushroom { display: none; }
+}
+
+/* ============================================================
+   响应式适配 — 小屏手机 (≤480px)
+   ============================================================ */
+@media (max-width: 480px) {
+  .top-banner .banner-box h1 {
+    font-size: 18px;
+    letter-spacing: 2px;
+  }
+  .top-banner .banner-box .banner-sub {
+    font-size: 8px;
+    letter-spacing: 1px;
+  }
+  .top-banner .banner-box {
+    padding: 10px 16px;
+  }
+
+  .fixed-avatar .avatar-frame {
+    width: 90px;
+    height: 90px;
+  }
+  .fixed-avatar .hp-bar {
+    width: 90px;
+  }
+  .fixed-avatar .name-tag {
+    font-size: 12px;
+    padding: 2px 8px;
+  }
+  .fixed-avatar .pixel-badge {
+    font-size: 7px;
+  }
+
+  .timeline-item.tl-left,
+  .timeline-item.tl-right {
+    padding-left: 42px;
+    padding-right: 10px;
+  }
+  .tl-card .tl-year {
+    font-size: 18px;
+  }
+  .tl-card .tl-content {
+    font-size: 10px;
+    line-height: 1.6;
+  }
+
+  .section-header h2 {
+    font-size: 16px;
+    padding: 8px 14px;
+  }
+
+  .game-info .pixel-progress .bar-wrap {
+    width: 70px;
+    height: 12px;
+  }
+  .game-info .achievement {
+    font-size: 9px;
+  }
+
+  .now-playing-card .np-info h4 {
+    font-size: 12px;
+  }
+  .now-playing-card .np-info .pixel-progress .bar-wrap {
+    width: 80px;
+  }
+
+  .side-nav a {
+    font-size: 8px;
+    padding: 8px 2px;
+  }
+  .side-nav a .pip {
+    width: 5px;
+    height: 5px;
+  }
+}
+
+/* ============================================================
+   响应式适配 — 超宽屏 (≥1440px)
+   ============================================================ */
+@media (min-width: 1440px) {
+  .game-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  .now-playing-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .tl-card {
+    max-width: 450px;
+  }
+}
+
 </style>
 </head>
 <body>
@@ -1640,188 +1665,7 @@ body::after {
   <div class="pixel-badge" id="pressStartBtn">▶ PRESS START ◀</div>
 </div>
 
-<!-- ============================================================
-     左侧菜单按钮
-     ============================================================ -->
-<button class="menu-trigger" id="menuTrigger" onclick="openMenu()">
-  <div class="menu-icon-box">
-    <div class="pixel-menu-icon">
-      <span></span>
-      <span></span>
-      <span></span>
-    </div>
-  </div>
-  <div class="menu-label">想来点什么吗？</div>
-</button>
 
-<!-- ============================================================
-     菜单弹框（像素风）
-     ============================================================ -->
-<div class="menu-overlay" id="menuOverlay">
-  <div class="menu-popup">
-    <!-- 顶栏 -->
-    <div class="popup-header">
-      <div class="popup-title"><span class="title-icon">🍣</span>今日菜单<span class="title-icon">🍹</span></div>
-      <button class="popup-close" onclick="closeMenu()">✕</button>
-    </div>
-
-    <!-- 标签页 -->
-    <div class="menu-tabs">
-      <button class="menu-tab-btn active" onclick="switchTab('sushi')">🍣 寿司</button>
-      <button class="menu-tab-btn" onclick="switchTab('cocktail')">🍹 鸡尾酒</button>
-    </div>
-
-    <!-- 第一页：寿司 -->
-    <div class="menu-page menu-page-sushi active" id="page-sushi">
-      <div class="menu-category">握寿司 NIGIRI ───</div>
-      <div class="menu-grid">
-        <div class="menu-item featured">
-          <div class="item-number">01</div>
-          <div class="item-icon">🍣</div>
-          <div class="item-name">甜虾握寿司</div>
-          <div class="item-name-sub">エビ握り</div>
-          <div class="item-price">31</div>
-        </div>
-        <div class="menu-item">
-          <div class="item-number">02</div>
-          <div class="item-icon">🍣</div>
-          <div class="item-name">三文鱼握寿司</div>
-          <div class="item-name-sub">サーモン握り</div>
-          <div class="item-price">51</div>
-        </div>
-        <div class="menu-item">
-          <div class="item-number">03</div>
-          <div class="item-icon">🍣</div>
-          <div class="item-name">玉子烧握寿司</div>
-          <div class="item-name-sub">玉子焼き</div>
-          <div class="item-price">32</div>
-        </div>
-        <div class="menu-item">
-          <div class="item-number">04</div>
-          <div class="item-icon">🍣</div>
-          <div class="item-name">军舰寿司</div>
-          <div class="item-name-sub">いくらの</div>
-          <div class="item-price">30</div>
-        </div>
-        <div class="menu-item">
-          <div class="item-number">05</div>
-          <div class="item-icon">🥬</div>
-          <div class="item-name">海草沙拉</div>
-          <div class="item-name-sub">わきずし</div>
-          <div class="item-price">26</div>
-        </div>
-        <div class="menu-item">
-          <div class="item-number">06</div>
-          <div class="item-icon">🍣</div>
-          <div class="item-name">金枪鱼寿司</div>
-          <div class="item-name-sub">マグロ</div>
-          <div class="item-price">21</div>
-        </div>
-      </div>
-
-      <div class="menu-category">卷物 MAKI ───</div>
-      <div class="menu-grid">
-        <div class="menu-item">
-          <div class="item-number">07</div>
-          <div class="item-icon">🥒</div>
-          <div class="item-name">黄瓜卷</div>
-          <div class="item-name-sub">カッパ巻き</div>
-          <div class="item-price">5</div>
-        </div>
-        <div class="menu-item">
-          <div class="item-number">08</div>
-          <div class="item-icon">🐟</div>
-          <div class="item-name">三文鱼卷</div>
-          <div class="item-name-sub">サーモン</div>
-          <div class="item-price">7</div>
-        </div>
-        <div class="menu-item">
-          <div class="item-number">09</div>
-          <div class="item-icon">🍙</div>
-          <div class="item-name">细卷寿司</div>
-          <div class="item-name-sub">細巻き</div>
-          <div class="item-price">4</div>
-        </div>
-      </div>
-    </div>
-
-    <!-- 第二页：鸡尾酒 -->
-    <div class="menu-page menu-page-cocktail" id="page-cocktail">
-      <div class="menu-category">— 鸡尾酒 cocktail —</div>
-      <div class="menu-grid">
-        <div class="menu-item">
-          <div class="item-number">01</div>
-          <div class="item-icon">🍷</div>
-          <div class="item-name">极光</div>
-          <div class="item-name-sub">Aurora</div>
-          <div class="item-price">25</div>
-        </div>
-        <div class="menu-item">
-          <div class="item-number">02</div>
-          <div class="item-icon">🍹</div>
-          <div class="item-name">西班牙小镇</div>
-          <div class="item-name-sub">Spanish Town</div>
-          <div class="item-price">59</div>
-        </div>
-        <div class="menu-item">
-          <div class="item-number">03</div>
-          <div class="item-icon">🍸</div>
-          <div class="item-name">常青藤</div>
-          <div class="item-name-sub">Ever Green</div>
-          <div class="item-price">16</div>
-        </div>
-        <div class="menu-item">
-          <div class="item-number">04</div>
-          <div class="item-icon">🧊</div>
-          <div class="item-name">知更鸟</div>
-          <div class="item-name-sub">Mockingbird</div>
-          <div class="item-price">37</div>
-        </div>
-        <div class="menu-item">
-          <div class="item-number">05</div>
-          <div class="item-icon">🌪️</div>
-          <div class="item-name">飓风</div>
-          <div class="item-name-sub">Hurricane</div>
-          <div class="item-price">28</div>
-        </div>
-        <div class="menu-item">
-          <div class="item-number">06</div>
-          <div class="item-icon">🌴</div>
-          <div class="item-name">天堂</div>
-          <div class="item-name-sub">Paradise</div>
-          <div class="item-price">29</div>
-        </div>
-        <div class="menu-item">
-          <div class="item-number">07</div>
-          <div class="item-icon">🍷</div>
-          <div class="item-name">红衣主教</div>
-          <div class="item-name-sub">Cardinal</div>
-          <div class="item-price">41</div>
-        </div>
-        <div class="menu-item">
-          <div class="item-number">08</div>
-          <div class="item-icon">😈</div>
-          <div class="item-name">恶魔</div>
-          <div class="item-name-sub">El Diablo</div>
-          <div class="item-price">32</div>
-        </div>
-        <div class="menu-item">
-          <div class="item-number">09</div>
-          <div class="item-icon">🗻</div>
-          <div class="item-name">富士山</div>
-          <div class="item-name-sub">Mt. Fuji</div>
-          <div class="item-price">36</div>
-        </div>
-      </div>
-    </div>
-
-    <!-- 底部页码 -->
-    <div class="menu-footer">
-      <div class="page-dot active" onclick="switchTab('sushi')"></div>
-      <div class="page-dot" onclick="switchTab('cocktail')"></div>
-    </div>
-  </div>
-</div>
 
 <!-- ============================================================
      右侧纵列导航
@@ -2300,45 +2144,7 @@ function animateOnScroll() {
   });
 }
 
-// ==================== 菜单弹框 ====================
-function openMenu() {
-  document.getElementById('menuOverlay').classList.add('active');
-  document.body.style.overflow = 'hidden';
-}
 
-function closeMenu() {
-  document.getElementById('menuOverlay').classList.remove('active');
-  document.body.style.overflow = '';
-}
-
-// 点击遮罩关闭
-document.getElementById('menuOverlay').addEventListener('click', function(e) {
-  if (e.target === this) closeMenu();
-});
-
-// ESC 关闭
-document.addEventListener('keydown', function(e) {
-  if (e.key === 'Escape') closeMenu();
-});
-
-function switchTab(tab) {
-  // 切换页面
-  document.querySelectorAll('.menu-page').forEach(p => p.classList.remove('active'));
-  document.querySelectorAll('.menu-tab-btn').forEach(b => b.classList.remove('active'));
-  document.querySelectorAll('.menu-footer .page-dot').forEach(d => d.classList.remove('active'));
-
-  document.getElementById('page-' + tab).classList.add('active');
-
-  // 更新按钮
-  const btns = document.querySelectorAll('.menu-tab-btn');
-  if (tab === 'sushi') {
-    btns[0].classList.add('active');
-    document.querySelectorAll('.menu-footer .page-dot')[0].classList.add('active');
-  } else {
-    btns[1].classList.add('active');
-    document.querySelectorAll('.menu-footer .page-dot')[1].classList.add('active');
-  }
-}
 
 // ==================== 事件监听 ====================
 window.addEventListener('scroll', () => {
